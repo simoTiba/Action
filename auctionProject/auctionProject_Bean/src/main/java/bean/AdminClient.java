@@ -37,24 +37,18 @@ public class AdminClient implements interAdminClient{
 	
 	
 
-	 private static final String JPQL_SELECT_BY_ID = "SELECT * FROM OBJET WHERE id=:ID";
+	 private static final String JPQL_SELECT_BY_ID = "SELECT * FROM OBJETS WHERE id=:ID";
 	 private static final String PARAM_ID= "ID";
 	
 	
-	public Object findObject(int ID) throws SQLException {
+	public Objets findObject(int ID) throws SQLException {
 		User c=null;
 		Query requete = em.createQuery( JPQL_SELECT_BY_ID );
         requete.setParameter( PARAM_ID, ID );
         
-		return (User)requete.getSingleResult() ;
+		return (Objets)requete.getSingleResult() ;
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 
@@ -71,9 +65,17 @@ public class AdminClient implements interAdminClient{
 		em.persist(usr);
 		
 		Objets obj = new Objets();
-		obj.setId("1");
+		obj.setId(1);
 		obj.setPrice(120);
 		obj.setSeel_statut(false);
+		
+		Objets obj2 = new Objets();
+		try {
+			obj2=this.findObject(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		em.persist(obj);
 

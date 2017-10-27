@@ -26,7 +26,7 @@ public class AuctionManager implements AuctionClient {
 	
 	@Override
 	public boolean startAuction(Auction au) {
-		try {
+		/*try {
 			if(au.getObj()== adm.findObject(au.getObj().getId())){
 				
 				
@@ -36,7 +36,7 @@ public class AuctionManager implements AuctionClient {
 			e.printStackTrace();
 		}
 		
-		au.setState("Started");
+		au.setState("Started");*/
 		return false;
 	}
 
