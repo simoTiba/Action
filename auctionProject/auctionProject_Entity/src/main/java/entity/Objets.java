@@ -1,27 +1,35 @@
 package entity;
 
+import static javax.persistence.CascadeType.ALL;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Objets")
-public class object extends ParentOU implements Serializable {
+public class Objets extends ParentOU implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	
-	private String id;
+	private int id;
 	private String desc;
 	private String cat;
+	
+	@ManyToOne
+	@JoinColumn(name="pseudo")
 	private String id_vendor;
 	private String inc_prop;
 	private double price;
 	private boolean seel_statut;
-	public object(String id, String desc, String cat, String id_vendor, String inc_prop, double price,
+	public Objets(int id, String desc, String cat, String id_vendor, String inc_prop, double price,
 			boolean seel_statut) {
 		super();
 		this.id = id;
@@ -32,16 +40,16 @@ public class object extends ParentOU implements Serializable {
 		this.price = price;
 		this.seel_statut = seel_statut;
 	}
-	public object() {
+	public Objets() {
 		super();
 	}
 	
 	@Id
 	@Column(name = "Obj_Id")
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	@Column(name = "Obj_Desc")
@@ -58,6 +66,7 @@ public class object extends ParentOU implements Serializable {
 	public void setCat(String cat) {
 		this.cat = cat;
 	}
+	
 	public String getId_vendor() {
 		return id_vendor;
 	}

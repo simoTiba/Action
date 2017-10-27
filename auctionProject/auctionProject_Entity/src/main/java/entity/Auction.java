@@ -20,7 +20,7 @@ public class Auction extends ParentOU implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
-	private String obj;
+	private Objets obj;
 	private ArrayList<User> o = new ArrayList<User>()   ;
 	private String state;
 	private int price;
@@ -32,10 +32,10 @@ public class Auction extends ParentOU implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getObj() {
+	public Objets getObj() {
 		return obj;
 	}
-	public void setObj(String obj) {
+	public void setObj(Objets obj) {
 		this.obj = obj;
 	}
 	
@@ -59,17 +59,23 @@ public class Auction extends ParentOU implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Auction(String id, String obj, ArrayList<User> o, String state, int price) {
+	
+	public Auction(String id, Objets obj, int price) {
 		super();
 		this.id = id;
 		this.obj = obj;
-		this.o = o;
-		this.state = state;
+		this.o = null;
+		this.state = null;
 		this.price = price;
 	}
+	
 	public Auction() {
 		
 	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Auction [id=" + id + ", obj=" + obj + ", o=" + o + ", state=" + state + ", price=" + price + "]";

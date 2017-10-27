@@ -152,5 +152,6 @@
   	<module>auctionProject_Api</module>
   	<module>auctionProject_Bean</module>
   	<module>auctionProject_Client</module>
+  	<module>AuctionManager</module>
   </modules>
 </project>

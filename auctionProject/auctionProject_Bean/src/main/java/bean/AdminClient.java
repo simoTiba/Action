@@ -1,12 +1,14 @@
 package bean;
 
+import java.sql.SQLException;
+
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
 import api.interAdminClient;
 import entity.ParentOU;
 import entity.User;
-import entity.object;
+import entity.Objets;
 
 
 
@@ -30,6 +32,31 @@ public class AdminClient implements interAdminClient{
 	public void updateUr(ParentOU u) {
 		 
 	}
+	
+	
+	
+	
+
+	 private static final String JPQL_SELECT_BY_ID = "SELECT * FROM OBJET WHERE id=:ID";
+	 private static final String PARAM_ID= "ID";
+	
+	
+	public Object findObject(int ID) throws SQLException {
+		User c=null;
+		Query requete = em.createQuery( JPQL_SELECT_BY_ID );
+        requete.setParameter( PARAM_ID, ID );
+        
+		return (User)requete.getSingleResult() ;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//cree la table avec qlq exemples
 	public String creatTable() {
@@ -43,7 +70,7 @@ public class AdminClient implements interAdminClient{
 		
 		em.persist(usr);
 		
-		object obj = new object();
+		Objets obj = new Objets();
 		obj.setId("1");
 		obj.setPrice(120);
 		obj.setSeel_statut(false);
