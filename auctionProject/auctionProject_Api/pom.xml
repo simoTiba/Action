@@ -20,10 +20,6 @@
       <version>7.0</version>
     </dependency>
 
-  	<dependency>
-  		<groupId>micro</groupId>
-  		<artifactId>auctionProject_Api</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+  	
   </dependencies>
 </project>

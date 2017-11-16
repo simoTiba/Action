@@ -1,49 +1,53 @@
 #!/bin/bash
 
-asadmin stop-domain
-asadmin stop-database
-echo "--------------------------------------------------------------------------"
-echo "--------------------------------------------------------------------------"
-echo "---------                  Auction Projet EJB                  -----------"
-echo "--------------------------------------------------------------------------"
-echo "--------------------------------------------------------------------------"
+fct_menu ()
+{
+	clear
+echo ------------------------------ Micro Projet EJB ----------------------------
+echo "Choisir un ordre"
+echo "Quitter le script via (Q)"
+echo
+echo " Clean + install + Lancer le deployement         (1) "
+echo " Lancer le Client                                (2) "
 
-sleep 4
-clear
+echo
+echo -n "Choix > "
+echo -n
 
-echo "---------                1 - MAVEN Clean Install                      -----------"
-mvn clean install
+read optionmenu
+    case $optionmenu in
+    1)
+		clear
+		asadmin stop-domain
+		asadmin stop-database
+        mvn clean install 
+       	sleep 2
+       	asadmin start-domain
+		asadmin start-database
+		asadmin undeploy microProject-bean
+		asadmin deploy auctionProject_Bean/target/microProject-bean.jar
+		asadmin stop-domain
+		asadmin stop-database
 
-echo "---------                Fin de l'etape 1                       -----------"
-
-sleep 4 
-clear
-
-echo "---------                2 - Deployement                      -----------"
-
-asadmin start-domain
-sleep 2
-
-
-asadmin start-database
-sleep 2
-asadmin undeploy microProject-bean
-sleep 2
-asadmin deploy auctionProject_Bean/target/microProject-bean.jar
-sleep 4
-clear
-echo "---------                Fin de l'etape 2                       -----------"
-sleep 2
-echo "Lencer le test (yes/non)"
-#read rep
-#if [ $rep= "YES" || $rep= "yes" || $rep= "y" ]
-#then
-##	echo "---------                3 - Test                      -----------"
-#	cd ClientBean
-#	java -classpath $CLASSPATH:../auctionProject_Bean/target/microProject-bean.jar:target/auctionProject_Client-0.0.1-SNAPSHOT.jar client.Client
-#	cd ..
-#fi
- 
-echo "---------                Fin de l'etape 3                      -----------"
-
-
+        fct_menu ;;
+    2)
+		asadmin start-domain
+		asadmin start-database
+        cd auctionProject_Client
+		java -classpath $CLASSPATH:../auctionProject_Bean/target/microProject-bean.jar:target/auctionProject_Client-0.0.1-SNAPSHOT.jar client.Client
+		sleep 8
+		cd ..
+		
+	exit ;;	
+        
+   
+    Q)
+        exit ;;
+    *)
+        echo
+        echo "Erreur de frappe "
+        echo
+        fct_menu ;;
+        esac
+}
+fct_menu

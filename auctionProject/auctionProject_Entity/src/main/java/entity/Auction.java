@@ -1,52 +1,87 @@
 package entity;
 
-import static javax.persistence.CascadeType.ALL;
+
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 import javax.persistence.Entity;
+
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="Auction")
-public class Auction extends ParentOU implements Serializable {
+public class Auction implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+	@Id 
 	private String id;
-	private Objets obj;
-	private ArrayList<User> o = new ArrayList<User>()   ;
-	private String state;
+	@OneToOne
+	@JoinColumn(name="idobj",nullable=false)
+	private Objet obj;
+	@OneToOne
+	private User acheteur;
+	@ManyToOne
+	@JoinColumn(nullable=false)
+	private User vendeur;
+	public String state;
 	private int price;
 	
-	@Id 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private Auction(String id, Objet obj,int prixdebut) {
+		super();
+		this.id = id;
+		this.obj = obj;
+		this.vendeur =obj.getId_vendor();
+		this.price= prixdebut;
+		this.state = "not started";
+	}
+
+	public static Auction creerAuction(String id, Objet obj,int prixdebut) {
+		return new Auction(id, obj, prixdebut);
+		
+	}
+	
+	
+	
+	
+	
+	
+	public User getAcheteur() {
+		return acheteur;
+	}
+
+	public void setAcheteur(User acheteur) {
+		this.acheteur = acheteur;
+	}
+
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Objets getObj() {
+	public Objet getObj() {
 		return obj;
 	}
-	public void setObj(Objets obj) {
+	public void setObj(Objet obj) {
 		this.obj = obj;
 	}
 	
-	@OneToMany(cascade = ALL, mappedBy = "ect")
-	public ArrayList<User> getO() {
-		return o;
-	}
-	
-	public void setO(ArrayList<User> o) {
-		this.o = o;
-	}
 	public String getState() {
 		return state;
 	}
@@ -56,29 +91,30 @@ public class Auction extends ParentOU implements Serializable {
 	public int getPrice() {
 		return price;
 	}
+	public User getVendeur() {
+		return vendeur;
+	}
+	public void setVendeur(User vendeur) {
+		this.vendeur = vendeur;
+	}
 	public void setPrice(int price) {
 		this.price = price;
 	}
 	
-	public Auction(String id, Objets obj, int price) {
-		super();
-		this.id = id;
-		this.obj = obj;
-		this.o = null;
-		this.state = null;
-		this.price = price;
-	}
+
+	
+	
+	
+	
+	
 	
 	public Auction() {
-		
+		super();
 	}
-	
-	
-	
-	
+
 	@Override
 	public String toString() {
-		return "Auction [id=" + id + ", obj=" + obj + ", o=" + o + ", state=" + state + ", price=" + price + "]";
+		return "Auction [id=" + id + ", obj=" + obj + ", acheteur=" + acheteur + ", state=" + state + ", price=" + price + "]";
 	}
 	
 

@@ -22,11 +22,7 @@
       <artifactId>javaee-api</artifactId>
       <version>7.0</version>
     </dependency>
-  	    <dependency>
-  	    	<groupId>micro</groupId>
-  	    	<artifactId>AuctionManager</artifactId>
-  	    	<version>0.0.1-SNAPSHOT</version>
-  	    </dependency>
+  	   
   </dependencies>
   
   
